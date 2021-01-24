@@ -33,9 +33,27 @@ describe("SHA-256 Test", function() {
     });
   });
 
+  // Uppercase sigma zero test
+  describe("Uppercase Sigma Zero Test", function() {
+    it("Tests the uppercase sigma zero function", function() {
+      const input = 0b00000000000000000011111111111111;
+      result = sha256.S0(input);
+      expect(result).to.equal(0b00111111000001111111001111111110);
+    });
+  });
+
+  // Uppercase sigma one test
+  describe("Uppercase Sigma One Test", function() {
+    it("Tests the uppercase sigma one function", function() {
+      const input = 0b00000000000000000011111111111111;
+      result = sha256.S1(input);
+      expect(result).to.equal(0b00000011111111111111111101111000);
+    });
+  });
+
   // low sigma zero test
-  describe("Low Sigma Zero Test", function() {
-    it("Tests the low sigma zero function", function() {
+  describe("Lowercase Sigma Zero Test", function() {
+    it("Tests the lowercase sigma zero function", function() {
       const input = 0b00000000000000000011111111111111;
       result = sha256.s0(input);
       resultTwosComplement = (result >>> 0).toString(2);
@@ -44,11 +62,10 @@ describe("SHA-256 Test", function() {
   });
 
   // low sigma one test
-  describe("Low Sigma One Test", function() {
-    it("Tests the low sigma one function", function() {
+  describe("Lowercase Sigma One Test", function() {
+    it("Tests the lowervase sigma one function", function() {
       const input = 0b00000000000000000011111111111111;
       result = sha256.s1(input);
-      resultTwosComplement = (result >>> 0).toString(2);
       expect(result).to.equal(0b00011000000000000110000000001111);
     });
   });
