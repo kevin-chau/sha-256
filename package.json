@@ -1,0 +1,17 @@
+{
+  "name": "sha256",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^8.2.1"
+  },
+  "dependencies": {
+    "chai": "^4.2.0"
+  }
+}
