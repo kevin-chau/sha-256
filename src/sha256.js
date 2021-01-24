@@ -15,15 +15,17 @@ function shiftRight(x, n)
 }
 
 // Lower-case sigma 0
-const LOW_SIGMA_ONE_CONST_1 = 7;
-const LOW_SIGMA_ONE_CONST_2 = 18;
-const LOW_SIGMA_ONE_CONST_3 = 3;
-function s1 (x)
+const LOW_SIGMA_ZERO_CONST_1 = 7;
+const LOW_SIGMA_ZERO_CONST_2 = 18;
+const LOW_SIGMA_ZERO_CONST_3 = 3;
+function s0 (x)
 {
-  return rotateRight(x, LOW_SIGMA_ONE_CONST_1) ^
-         rotateRight(x, LOW_SIGMA_ONE_CONST_2) ^
-         shiftRight(x, LOW_SIGMA_ONE_CONST_3);
+  return rotateRight(x, LOW_SIGMA_ZERO_CONST_1) ^
+         rotateRight(x, LOW_SIGMA_ZERO_CONST_2) ^
+         shiftRight(x, LOW_SIGMA_ZERO_CONST_3);
 }
 
 // Exports
 exports.rotateRight = rotateRight;
+exports.shiftRight = shiftRight;
+exports.s0 = s0;
