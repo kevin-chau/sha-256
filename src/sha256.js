@@ -25,7 +25,19 @@ function s0 (x)
          shiftRight(x, LOW_SIGMA_ZERO_CONST_3);
 }
 
+// Lower-case sigma 1
+const LOW_SIGMA_ONE_CONST_1 = 17;
+const LOW_SIGMA_ONE_CONST_2 = 19;
+const LOW_SIGMA_ONE_CONST_3 = 10;
+function s1 (x)
+{
+  return rotateRight(x, LOW_SIGMA_ONE_CONST_1) ^
+         rotateRight(x, LOW_SIGMA_ONE_CONST_2) ^
+         shiftRight(x, LOW_SIGMA_ONE_CONST_3);
+}
+
 // Exports
 exports.rotateRight = rotateRight;
 exports.shiftRight = shiftRight;
 exports.s0 = s0;
+exports.s1 = s1;

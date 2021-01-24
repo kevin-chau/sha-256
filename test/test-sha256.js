@@ -33,13 +33,23 @@ describe("SHA-256 Test", function() {
     });
   });
 
-  // low sigma Test
-  describe("Low Sigma Zero test", function() {
+  // low sigma zero test
+  describe("Low Sigma Zero Test", function() {
     it("Tests the low sigma zero function", function() {
       const input = 0b00000000000000000011111111111111;
       result = sha256.s0(input);
       resultTwosComplement = (result >>> 0).toString(2);
       expect(resultTwosComplement).to.equal("11110001111111111100011110000000");
+    });
+  });
+
+  // low sigma one test
+  describe("Low Sigma One Test", function() {
+    it("Tests the low sigma one function", function() {
+      const input = 0b00000000000000000011111111111111;
+      result = sha256.s1(input);
+      resultTwosComplement = (result >>> 0).toString(2);
+      expect(result).to.equal(0b00011000000000000110000000001111);
     });
   });
 });
