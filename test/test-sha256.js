@@ -69,4 +69,13 @@ describe("SHA-256 Test", function() {
       expect(result).to.equal(0b00011000000000000110000000001111);
     });
   });
+
+  // test sha256
+  describe("SHA-256 EMPTY STRING", function() {
+    it("Tests the empty string (zero-length) input message", function() {
+      const input = "";
+      result = sha256.sha256(input);
+      expect(result).to.equal("0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+    });
+  });
 });
