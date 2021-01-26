@@ -15,6 +15,10 @@ function shiftRight(x, n)
 }
 
 // Choice function
+function ch(x,y,z)
+{
+  return (x & y) ^ (~x & z);
+}
 
 // Upper-case Sigma 0
 const UP_SIGMA_ZERO_CONST_1 = 2;
@@ -141,6 +145,22 @@ function sha256(message)
     console.log("w" + i.toString() + ": " + pad((w[i]>>>0).toString(2),32));
   }
 
+  // Initialize working variables to current hash values
+  var a = h0;
+  var b = h1;
+  var c = h2;
+  var d = h3;
+  var e = h4;
+  var f = h5;
+  var g = h6;
+  var h = h7;
+
+  // Compression function main loop
+  for (var i = 0; i < 64; i++)
+  {
+      Sig1_e = S1(e);
+  }
+
 
   var digest = "";
   return digest;
@@ -154,3 +174,4 @@ exports.s1 = s1;
 exports.S0 = S0;
 exports.S1 = S1;
 exports.sha256 = sha256;
+exports.ch = ch;

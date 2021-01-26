@@ -87,6 +87,18 @@ describe("SHA-256 Test", function() {
     });
   });
 
+  // test ch
+  describe("Ch Test", function() {
+    it("Tests choice function", function() {
+      const x = 0b00000000111111110000000011111111;
+      const y = 0b00000000000000001111111111111111;
+      const z = 0b11111111111111110000000000000000;
+      result = sha256.ch(x,y,z);
+      resultTwosComplement = (result >>> 0).toString(2);
+      expect(resultTwosComplement).to.equal("11111111000000000000000011111111");
+    });
+  });
+
   // test sha256
   describe("SHA-256 EMPTY STRING", function() {
     it("Tests the empty string (zero-length) input message", function() {
