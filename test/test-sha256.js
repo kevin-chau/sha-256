@@ -51,6 +51,23 @@ describe("SHA-256 Test", function() {
     });
   });
 
+  describe("rotate right Test", function() {
+    it("Tests the rotate right function", function() {
+      const input = 0b10000000000000000000000000000000;
+      result = sha256.rotateRight(input,17);
+      expect(result).to.equal(0b00000000000000000100000000000000);
+    });
+  });
+
+  // Uppercase sigma one test
+  describe("Lowercase Sigma One Test", function() {
+    it("Tests the lowercase sigma one function on w16", function() {
+      const input = 0b10000000000000000000000000000000;
+      res = sha256.s1(input);
+      expect(res).to.equal(0b00000000001000000101000000000000);
+    });
+  });
+
   // low sigma zero test
   describe("Lowercase Sigma Zero Test", function() {
     it("Tests the lowercase sigma zero function", function() {

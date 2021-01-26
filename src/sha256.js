@@ -11,7 +11,7 @@ function rotateRight(x, n)
 // Shift a 32 bit integer to the right by n bits
 function shiftRight(x, n)
 {
-  return x >> n;
+  return x >>> n;
 }
 
 // Choice function
@@ -56,6 +56,9 @@ const LOW_SIGMA_ONE_CONST_2 = 19;
 const LOW_SIGMA_ONE_CONST_3 = 10;
 function s1 (x)
 {
+  console.log(rotateRight(x, LOW_SIGMA_ONE_CONST_1).toString(2));
+  console.log(rotateRight(x, LOW_SIGMA_ONE_CONST_2).toString(2));
+  console.log(shiftRight(x, LOW_SIGMA_ONE_CONST_3).toString(2));
   return rotateRight(x, LOW_SIGMA_ONE_CONST_1) ^
          rotateRight(x, LOW_SIGMA_ONE_CONST_2) ^
          shiftRight(x, LOW_SIGMA_ONE_CONST_3);
@@ -124,6 +127,30 @@ function sha256(message)
   console.log(m);
   console.log("length:");
   console.log(m.length);
+
+  // Break message into chunks of 512
+  // // TODO:
+
+  // Create length 64 array message schedule of 32 bit words
+  var w = new Array(64).fill(0);
+  // copy chunk into first 16 words w[0..15] of the message schedule array
+  for (var i = 0; i < 16; i++) {
+      w[i] = parseInt(m.substring(i,i+32),2);
+      console.log("w" + i.toString() + ": " + pad(w[i].toString(2),32));
+  }
+  // Extend the first 16 words into the remaining 48 words w[16..63] of the message schedule array:
+  for (var i = 16; i < 64; i++) {
+    w[i] = w[i-16] + s0(w[i-15]) + w[i-7] + s1(w[i-2]);
+    if (i == 18){
+      console.log(w[i-16]);
+      console.log(s0(w[i-15]));
+      console.log(s1(w[i-2]));
+      console.log(w[i-7]);
+      console.log(w[i]);
+      console.log((w[i]>>>0).toString(2));
+    }
+    console.log("w" + i.toString() + ": " + pad((w[i]>>>0).toString(2),32));
+  }
 
 
   var digest = "";
