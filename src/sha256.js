@@ -20,6 +20,12 @@ function ch(x,y,z)
   return (x & y) ^ (~x & z);
 }
 
+// Majority Function
+function maj(x,y,z)
+{
+  return (x & y) ^ (x & z) ^ (y & z);
+}
+
 // Upper-case Sigma 0
 const UP_SIGMA_ZERO_CONST_1 = 2;
 const UP_SIGMA_ZERO_CONST_2 = 13;
@@ -124,11 +130,6 @@ function sha256(message)
   // Append length as 64 bit big endian integer
   m += pad64(L.toString(2));
 
-  console.log("PREPROCESSED MESSAGE:");
-  console.log(m);
-  console.log("length:");
-  console.log(m.length);
-
   // Break message into chunks of 512
   // // TODO:
 
@@ -137,12 +138,10 @@ function sha256(message)
   // copy chunk into first 16 words w[0..15] of the message schedule array
   for (var i = 0; i < 16; i++) {
       w[i] = parseInt(m.substring(i,i+32),2);
-      console.log("w" + i.toString() + ": " + pad(w[i].toString(2),32));
   }
   // Extend the first 16 words into the remaining 48 words w[16..63] of the message schedule array:
   for (var i = 16; i < 64; i++) {
     w[i] = w[i-16] + s0(w[i-15]) + w[i-7] + s1(w[i-2]);
-    console.log("w" + i.toString() + ": " + pad((w[i]>>>0).toString(2),32));
   }
 
   // Initialize working variables to current hash values
@@ -158,11 +157,45 @@ function sha256(message)
   // Compression function main loop
   for (var i = 0; i < 64; i++)
   {
-      Sig1_e = S1(e);
+      // Calculate intermediate values
+      usig1 = S1(e);
+      choice = ch(e, f, g);
+      temp1 = h + usig1 + choice + k[i] + w[i];
+      usig0 = S0(a);
+      majority = maj(a,b,c);
+      temp2 = usig0 + majority;
+
+      // Update hash values
+      h = g;
+      g = f;
+      f = e;
+      e = d + temp1;
+      d = c;
+      c = b;
+      b = a;
+      a = temp1 + temp2;
   }
 
+   //Add the compressed chunk to the current hash value:
+  h0 = h0 + a;
+  h1 = h1 + b;
+  h2 = h2 + c;
+  h3 = h3 + d;
+  h4 = h4 + e;
+  h5 = h5 + f;
+  h6 = h6 + g;
+  h7 = h7 + h;
 
-  var digest = "";
+  var h0x = (h0>>>0).toString(16);
+  var h1x = (h1>>>0).toString(16);
+  var h2x = (h2>>>0).toString(16);
+  var h3x = (h3>>>0).toString(16);
+  var h4x = (h4>>>0).toString(16);
+  var h5x = (h5>>>0).toString(16);
+  var h6x = (h6>>>0).toString(16);
+  var h7x = (h7>>>0).toString(16);
+
+  var digest = "0x" + h0x + h1x + h2x + h3x + h4x + h5x + h6x + h7x;
   return digest;
 }
 
@@ -175,3 +208,4 @@ exports.S0 = S0;
 exports.S1 = S1;
 exports.sha256 = sha256;
 exports.ch = ch;
+exports.maj = maj;
